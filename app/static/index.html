@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>广告播出核销</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="title">
+      <h1>广告播出核销</h1>
+      <span class="subtitle">单频道计划 × 实播日志 · OR-Tools CP-SAT 全局分配 · 整数毫秒（半开区间）</span>
+    </div>
+    <div class="actions">
+      <button id="btn-refresh" class="btn">刷新当前结果</button>
+      <button id="btn-import" class="btn btn-primary">导入计划 / 日志</button>
+      <button id="btn-report" class="btn btn-accent">保存核销报告</button>
+    </div>
+  </header>
+
+  <div id="report-banner" class="report-banner hidden">
+    <span id="report-banner-text"></span>
+    <div>
+      <button id="btn-back-current" class="btn btn-small">返回当前工作集</button>
+      <button id="btn-download-report" class="btn btn-small">下载报告 JSON</button>
+    </div>
+  </div>
+
+  <section class="summary" id="summary"></section>
+
+  <section class="timelines">
+    <div class="panel">
+      <h2>计划时间轴（广告位）</h2>
+      <div id="plan-timeline" class="timeline"></div>
+    </div>
+    <div class="panel">
+      <h2>实播时间轴（播出区间）</h2>
+      <div id="air-timeline" class="timeline"></div>
+    </div>
+  </section>
+
+  <div class="legend" id="legend"></div>
+
+  <section class="columns">
+    <div class="panel">
+      <h2>未核销广告位</h2>
+      <div id="unverified"></div>
+    </div>
+    <div class="panel">
+      <h2>闲置片段（未被任何核销位使用）</h2>
+      <div id="idle"></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>核销分配证据</h2>
+    <div id="evidence"></div>
+  </section>
+
+  <section class="panel">
+    <h2>核销报告（不可变，输入修改后旧报告仍可查看）</h2>
+    <div id="reports"></div>
+  </section>
+
+  <div id="import-modal" class="modal hidden">
+    <div class="modal-box">
+      <h2>导入计划 / 实播日志</h2>
+      <p class="hint">粘贴 JSON：<code>{ "slots": [...], "segments": [...] }</code>。导入将整量替换当前工作集（旧报告保留）。</p>
+      <textarea id="import-text" spellcheck="false"></textarea>
+      <div id="import-errors" class="import-errors"></div>
+      <div class="modal-actions">
+        <button id="btn-fill-sample" class="btn">填入示例</button>
+        <span class="spacer"></span>
+        <button id="btn-cancel-import" class="btn">取消</button>
+        <button id="btn-do-import" class="btn btn-primary">导入并重算</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

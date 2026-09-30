@@ -1,0 +1,9 @@
+services:
+  web:
+    build: .
+    container_name: ad-verification
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/data
+    restart: unless-stopped
