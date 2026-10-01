@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>广告播出核销</title>
+<link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <h1>广告播出核销 <span class="sub">单频道 · 整数毫秒 · 半开区间</span></h1>
+  <div id="history-banner" class="history-banner hidden">
+    正在查看历史报告 <code id="history-id"></code>
+    <span id="history-time"></span>
+    <button id="btn-clear-history" class="btn btn-small">返回最新结果视图</button>
+  </div>
+</header>
+
+<main class="layout">
+  <section class="panel input-panel">
+    <div class="panel-head">
+      <h2>① 输入数据（计划 + 实播日志）</h2>
+      <div class="btn-row">
+        <button id="btn-sample" class="btn">载入示例</button>
+        <button id="btn-verify" class="btn btn-primary">核销计算</button>
+      </div>
+    </div>
+    <textarea id="json-input" spellcheck="false"
+      placeholder='{"channel": "...", "slots": [...], "fragments": [...]}'></textarea>
+    <div id="errors" class="errors hidden"></div>
+    <div id="summary" class="summary hidden"></div>
+  </section>
+
+  <section class="panel reports-panel">
+    <div class="panel-head"><h2>② 已保存报告（不可变）</h2></div>
+    <div id="report-list" class="report-list"><p class="muted">尚无报告</p></div>
+  </section>
+</main>
+
+<section class="panel timeline-panel">
+  <div class="panel-head">
+    <h2>③ 时间轴对照</h2>
+    <div class="legend">
+      <span class="lg lg-verified"></span>已核销
+      <span class="lg lg-unverified"></span>未核销
+      <span class="lg lg-used"></span>已分配片段
+      <span class="lg lg-idle"></span>闲置片段
+      <span class="lg lg-tol"></span>容差窗
+    </div>
+  </div>
+  <div class="timelines">
+    <div class="tl-col">
+      <h3>计划时间轴（广告位）</h3>
+      <div id="axis-plan" class="axis"></div>
+      <div id="timeline-plan" class="timeline"></div>
+    </div>
+    <div class="tl-col">
+      <h3>实播时间轴（播出区间）</h3>
+      <div id="axis-air" class="axis"></div>
+      <div id="timeline-air" class="timeline"></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel detail-panel">
+  <div class="panel-head"><h2>④ 核销证据与剩余项</h2></div>
+  <div class="detail-grid">
+    <div>
+      <h3 class="ok-h">已核销广告位（含分配证据）</h3>
+      <div id="verified-list" class="cards"><p class="muted">尚无结果</p></div>
+    </div>
+    <div>
+      <h3 class="bad-h">未核销广告位</h3>
+      <div id="unverified-list" class="cards"><p class="muted">—</p></div>
+      <h3 class="idle-h">闲置实播片段</h3>
+      <div id="idle-list" class="cards"><p class="muted">—</p></div>
+    </div>
+  </div>
+</section>
+
+<div id="tooltip" class="tooltip hidden"></div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

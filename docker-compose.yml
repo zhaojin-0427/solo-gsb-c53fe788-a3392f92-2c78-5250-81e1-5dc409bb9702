@@ -1,0 +1,12 @@
+services:
+  verify-app:
+    build: .
+    container_name: ad-verify-app
+    ports:
+      - "8000:8000"
+    volumes:
+      - verify-data:/data
+    restart: unless-stopped
+
+volumes:
+  verify-data:
